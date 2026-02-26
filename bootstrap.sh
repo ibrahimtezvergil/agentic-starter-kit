@@ -91,6 +91,13 @@ case "$TOOL" in
     ;;
 esac
 
+# Plugin-ready Claude template (optional by default, always copied as scaffold)
+copy_file "$TPL_DIR/claude/plugin/.claude-plugin/plugin.json" "$TARGET/.claude-plugin/plugin.json"
+copy_file "$TPL_DIR/claude/plugin/README.md" "$TARGET/.claude-plugin/README.md"
+copy_file "$TPL_DIR/claude/plugin/commands/feature-dev.md" "$TARGET/.claude-plugin/commands/feature-dev.md"
+copy_file "$TPL_DIR/claude/plugin/hooks/README.md" "$TARGET/.claude-plugin/hooks/README.md"
+copy_file "$TPL_DIR/claude/plugin/skills/README.md" "$TARGET/.claude-plugin/skills/README.md"
+
 echo "\n🎉 Bootstrap complete for: $TARGET"
 echo "Tool mode: $TOOL"
 if [[ "$FORCE" == "true" ]]; then

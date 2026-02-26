@@ -11,6 +11,7 @@ Yeni bir projeye başlarken Codex / Claude Code (ve benzeri ajanlar) için temel
 - `docs/ai/prompt-template.txt`
 - `.claude/skills/bugfix-safe/SKILL.md`
 - `.claude/skills/review-pr-risk/SKILL.md`
+- `.claude-plugin/*` plugin-ready scaffold (commands/hooks/skills + plugin.json)
 
 ## Kullanım
 
@@ -30,6 +31,16 @@ Seçenekler:
 ```bash
 ./bootstrap.sh ~/projects/laravel/crm-app --tool both
 ```
+
+## Plugin-ready yapı
+
+Bootstrap, proje içine `.claude-plugin/` altında başlangıç scaffold'u da kopyalar:
+- `.claude-plugin/plugin.json`
+- `.claude-plugin/commands/feature-dev.md`
+- `.claude-plugin/hooks/README.md`
+- `.claude-plugin/skills/README.md`
+
+Bu yapı ile skill + command + hook birleşik plugin düzenine hızlı geçiş yapabilirsin.
 
 ## Claude Skills kullanımı
 
