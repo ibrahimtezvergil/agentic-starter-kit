@@ -1,0 +1,10 @@
+# starter.config.yml
+
+default_branch: origin/main
+risk.high_file_count: 25
+risk.medium_file_count: 10
+risk.high_score_threshold: 5
+risk.medium_score_threshold: 2
+validation.test_command: "[set per project]"
+validation.lint_command: "[set per project]"
+validation.build_command: "[set per project]"

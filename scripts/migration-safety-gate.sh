@@ -1,8 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-BASE_REF="${1:-HEAD~1}"
-HEAD_REF="${2:-HEAD}"
+ASSUME_YES="false"
+ARGS=()
+for arg in "$@"; do
+  case "$arg" in
+    --yes|--ci) ASSUME_YES="true" ;;
+    *) ARGS+=("$arg") ;;
+  esac
+done
+
+BASE_REF="${ARGS[0]:-HEAD~1}"
+HEAD_REF="${ARGS[1]:-HEAD}"
 
 if ! git rev-parse --git-dir >/dev/null 2>&1; then
   echo "❌ Not inside a git repository"
@@ -22,7 +31,11 @@ echo "Changed files:"
 echo "$DIFF_FILES" | grep -E '(^|/)database/migrations/|\.sql$' || true
 
 echo
-read -r -p "Did you verify rollback path and user test this migration? (type: yes): " ACK
+if [[ "$ASSUME_YES" == "true" ]]; then
+  ACK="yes"
+else
+  read -r -p "Did you verify rollback path and user test this migration? (type: yes): " ACK
+fi
 if [[ "$ACK" != "yes" ]]; then
   echo "❌ Safety gate blocked. Confirm rollback/test readiness first."
   exit 1

@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+source "$(dirname "$0")/lib-config.sh"
+
 TASK_SLUG="${1:-}"
-BASE_REF="${2:-origin/main}"
+BASE_REF="${2:-$(config_get default_branch origin/main)}"
 HEAD_REF="${3:-HEAD}"
 DATE="$(date +%F)"
 OUT_DIR="docs/pr-packages"

@@ -2,12 +2,21 @@
 set -euo pipefail
 
 if [[ $# -lt 1 ]]; then
-  echo "Usage: scripts/end-task.sh <task-slug>"
-  echo "Example: scripts/end-task.sh crm-login-timeout-fix"
+  echo "Usage: scripts/end-task.sh <task-slug> [--yes|--ci]"
+  echo "Example: scripts/end-task.sh crm-login-timeout-fix --yes"
   exit 1
 fi
 
-TASK_SLUG="$1"
+ASSUME_YES="false"
+ARGS=()
+for arg in "$@"; do
+  case "$arg" in
+    --yes|--ci) ASSUME_YES="true" ;;
+    *) ARGS+=("$arg") ;;
+  esac
+done
+
+TASK_SLUG="${ARGS[0]}"
 DATE="$(date +%F)"
 PLAN_FILE="docs/plans/${DATE}-${TASK_SLUG}.md"
 
@@ -22,7 +31,11 @@ echo "- Handoff section updated"
 echo "- Ready for review/PR"
 
 echo
-read -r -p "Did you run verification commands successfully? (y/N): " VERIFIED
+if [[ "$ASSUME_YES" == "true" ]]; then
+  VERIFIED="Y"
+else
+  read -r -p "Did you run verification commands successfully? (y/N): " VERIFIED
+fi
 if [[ ! "$VERIFIED" =~ ^[Yy]$ ]]; then
   echo "❌ Stop: run verification before closing task."
   exit 1
@@ -34,12 +47,24 @@ if [[ -f "$PLAN_FILE" ]]; then
   scripts/context-cost-guard.sh "$PLAN_FILE" || true
 fi
 
-read -r -p "Run migration safety gate before finishing? (y/N): " RUN_MIGRATION_GATE
+if [[ "$ASSUME_YES" == "true" ]]; then
+  RUN_MIGRATION_GATE="Y"
+else
+  read -r -p "Run migration safety gate before finishing? (y/N): " RUN_MIGRATION_GATE
+fi
 if [[ "$RUN_MIGRATION_GATE" =~ ^[Yy]$ ]]; then
-  scripts/migration-safety-gate.sh HEAD~1 HEAD
+  if [[ "$ASSUME_YES" == "true" ]]; then
+    scripts/migration-safety-gate.sh HEAD~1 HEAD --yes
+  else
+    scripts/migration-safety-gate.sh HEAD~1 HEAD
+  fi
 fi
 
-read -r -p "Do you want a session clear reminder now? (Y/n): " CLEAR_HINT
+if [[ "$ASSUME_YES" == "true" ]]; then
+  CLEAR_HINT="Y"
+else
+  read -r -p "Do you want a session clear reminder now? (Y/n): " CLEAR_HINT
+fi
 if [[ ! "$CLEAR_HINT" =~ ^[Nn]$ ]]; then
   echo "🧼 Reminder: clear/rotate session if next task is unrelated."
 fi

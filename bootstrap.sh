@@ -69,6 +69,7 @@ copy_file() {
 copy_file "$TPL_DIR/common/agentignore" "$TARGET/.agentignore"
 copy_file "$TPL_DIR/common/AGENTS.md" "$TARGET/AGENTS.md"
 copy_file "$TPL_DIR/common/prompt-template.txt" "$TARGET/docs/ai/prompt-template.txt"
+copy_file "$TPL_DIR/common/starter.config.yml" "$TARGET/starter.config.yml"
 
 # Claude Skills (project-local)
 copy_file "$TPL_DIR/claude/skills/bugfix-safe/SKILL.md" "$TARGET/.claude/skills/bugfix-safe/SKILL.md"
