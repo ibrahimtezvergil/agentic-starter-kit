@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# shellcheck source=scripts/lib-config.sh
+# shellcheck disable=SC1091
 source "$(dirname "$0")/lib-config.sh"
 
 TASK_SLUG="${1:-}"
