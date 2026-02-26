@@ -31,6 +31,12 @@ fi
 echo
 if [[ -f "$PLAN_FILE" ]]; then
   echo "📝 Update handoff in: $PLAN_FILE"
+  scripts/context-cost-guard.sh "$PLAN_FILE" || true
+fi
+
+read -r -p "Run migration safety gate before finishing? (y/N): " RUN_MIGRATION_GATE
+if [[ "$RUN_MIGRATION_GATE" =~ ^[Yy]$ ]]; then
+  scripts/migration-safety-gate.sh HEAD~1 HEAD
 fi
 
 read -r -p "Do you want a session clear reminder now? (Y/n): " CLEAR_HINT

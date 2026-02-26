@@ -40,10 +40,23 @@ else
 fi
 EOF
 
-chmod +x .githooks/post-commit
+cat > .githooks/pre-push <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ -n "${CI:-}" ]]; then
+  exit 0
+fi
+
+if [[ -x "scripts/migration-safety-gate.sh" ]]; then
+  scripts/migration-safety-gate.sh HEAD~1 HEAD
+fi
+EOF
+
+chmod +x .githooks/post-commit .githooks/pre-push
 
 # Use repo-local hooks path
 git config core.hooksPath .githooks
 
-echo "✅ Git hook installed: .githooks/post-commit"
+echo "✅ Git hooks installed: .githooks/post-commit + .githooks/pre-push"
 echo "✅ core.hooksPath set to .githooks"

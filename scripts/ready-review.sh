@@ -22,6 +22,7 @@ fi
 LAST_SHA="$(git rev-parse --short HEAD)"
 BRANCH="$(git branch --show-current)"
 CHANGED_FILES="$(git show --name-only --pretty='' HEAD | sed '/^$/d' | sort -u)"
+RISK="$(scripts/analyze-risk.sh HEAD~1 HEAD 2>/dev/null || echo unknown)"
 
 mkdir -p "$REVIEW_DIR"
 
@@ -32,6 +33,7 @@ cat > "$OUT_FILE" <<EOF
 - Branch: ${BRANCH}
 - Commit: ${LAST_SHA}
 - Created: $(date)
+- Auto Risk: ${RISK}
 
 ## Plan File
 $(if [[ -f "$PLAN_FILE" ]]; then echo "- ${PLAN_FILE}"; else echo "- (not found for today) expected: ${PLAN_FILE}"; fi)

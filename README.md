@@ -24,16 +24,26 @@ Yeni bir projeye başlarken Codex / Claude Code (ve benzeri ajanlar) için temel
 Bu repoda yardımcı script'ler vardır:
 
 ```bash
+scripts/start-feature.sh <task-slug> [branch-prefix]
 scripts/new-task.sh <task-slug>
 scripts/end-task.sh <task-slug>
 scripts/ready-review.sh <task-slug>
+scripts/package-pr.sh <task-slug> [base-ref] [head-ref]
+scripts/context-cost-guard.sh [plan-file]
+scripts/analyze-risk.sh [base-ref] [head-ref]
+scripts/migration-safety-gate.sh [base-ref] [head-ref]
 scripts/install-git-hooks.sh
 ```
 
+- `start-feature.sh`: branch açar + plan bootstrap eder (one-command kickoff)
 - `new-task.sh`: plan dosyası oluşturur, fresh session hygiene hatırlatır
-- `end-task.sh`: verification checklist ve session clear hatırlatması verir
-- `ready-review.sh`: review payload dosyası üretir (`docs/review-queue/`)
-- `install-git-hooks.sh`: commit sonrası "Review başlatılsın mı? (y/N)" promptunu kurar
+- `end-task.sh`: verification checklist + context/cost guard + migration safety prompt
+- `ready-review.sh`: review payload dosyası üretir (`docs/review-queue/`), auto risk ekler
+- `package-pr.sh`: PR package şablonu üretir (`docs/pr-packages/`)
+- `context-cost-guard.sh`: context/cost kokularını kontrol eder
+- `analyze-risk.sh`: diff için low/medium/high risk sınıfı üretir
+- `migration-safety-gate.sh`: migration/sql değişikliklerinde onay kapısı
+- `install-git-hooks.sh`: post-commit review prompt + pre-push migration gate kurar
 
 Seçenekler:
 

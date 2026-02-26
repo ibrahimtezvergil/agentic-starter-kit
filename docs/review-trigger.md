@@ -10,6 +10,7 @@ Trigger review in a controlled way without full automation spam.
    - `scripts/ready-review.sh <task-slug>`
 3. That script generates a review request file in:
    - `docs/review-queue/<timestamp>-<task-slug>-review-request.md`
+4. On push, `pre-push` runs migration safety gate for migration/sql changes.
 
 You can then send that file content to Claude Code (or another reviewer agent).
 
