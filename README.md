@@ -21,15 +21,19 @@ Yeni bir projeye başlarken Codex / Claude Code (ve benzeri ajanlar) için temel
 
 ## Yarı otomatik task/session akışı
 
-Bu repoda iki yardımcı script vardır:
+Bu repoda yardımcı script'ler vardır:
 
 ```bash
 scripts/new-task.sh <task-slug>
 scripts/end-task.sh <task-slug>
+scripts/ready-review.sh <task-slug>
+scripts/install-git-hooks.sh
 ```
 
 - `new-task.sh`: plan dosyası oluşturur, fresh session hygiene hatırlatır
 - `end-task.sh`: verification checklist ve session clear hatırlatması verir
+- `ready-review.sh`: review payload dosyası üretir (`docs/review-queue/`)
+- `install-git-hooks.sh`: commit sonrası "Review başlatılsın mı? (y/N)" promptunu kurar
 
 Seçenekler:
 
@@ -42,6 +46,7 @@ Seçenekler:
 
 ```bash
 ./bootstrap.sh ~/projects/laravel/crm-app --tool both
+scripts/install-git-hooks.sh
 ```
 
 ## Plugin-ready yapı
