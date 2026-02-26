@@ -70,6 +70,10 @@ copy_file "$TPL_DIR/common/agentignore" "$TARGET/.agentignore"
 copy_file "$TPL_DIR/common/AGENTS.md" "$TARGET/AGENTS.md"
 copy_file "$TPL_DIR/common/prompt-template.txt" "$TARGET/docs/ai/prompt-template.txt"
 
+# Claude Skills (project-local)
+copy_file "$TPL_DIR/claude/skills/bugfix-safe/SKILL.md" "$TARGET/.claude/skills/bugfix-safe/SKILL.md"
+copy_file "$TPL_DIR/claude/skills/review-pr-risk/SKILL.md" "$TARGET/.claude/skills/review-pr-risk/SKILL.md"
+
 case "$TOOL" in
   codex)
     copy_file "$TPL_DIR/codex/config.toml" "$TARGET/.codex/config.toml"
