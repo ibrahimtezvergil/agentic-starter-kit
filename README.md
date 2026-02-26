@@ -19,6 +19,18 @@ Yeni bir projeye başlarken Codex / Claude Code (ve benzeri ajanlar) için temel
 ./bootstrap.sh /path/to/project --tool both
 ```
 
+## Yarı otomatik task/session akışı
+
+Bu repoda iki yardımcı script vardır:
+
+```bash
+scripts/new-task.sh <task-slug>
+scripts/end-task.sh <task-slug>
+```
+
+- `new-task.sh`: plan dosyası oluşturur, fresh session hygiene hatırlatır
+- `end-task.sh`: verification checklist ve session clear hatırlatması verir
+
 Seçenekler:
 
 - `--tool codex`
