@@ -14,7 +14,7 @@ config_get() {
   # very small YAML reader for flat keys like a.b.c (best effort)
   # fallback to default on parse miss
   local pattern
-  pattern=$(echo "$key" | sed 's/\./\\./g')
+  pattern="${key//./\\.}"
   local value
   value=$(awk -v k="$pattern" '
     BEGIN{FS=":"}

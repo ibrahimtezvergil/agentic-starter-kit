@@ -39,5 +39,5 @@ else
   scripts/new-task.sh "$TASK_SLUG"
 fi
 
-echo "\n📌 Next: implement -> test -> commit"
+printf "\n📌 Next: implement -> test -> commit\n"
 echo "📌 After user tests: scripts/ready-review.sh $TASK_SLUG"
