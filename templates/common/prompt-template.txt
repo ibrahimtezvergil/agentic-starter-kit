@@ -1,0 +1,13 @@
+Goal: [one-line objective]
+Scope: only [allowed paths]
+Do not read: node_modules/, vendor/, .git/, dist/, build/, logs/, storage/logs/
+Constraints:
+- no dependency upgrades unless asked
+- no migrations unless asked
+Validation:
+- run: [test/lint/build command]
+Output:
+- changed files
+- test result
+- risks
+- next step

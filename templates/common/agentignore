@@ -1,0 +1,35 @@
+# Dependency / package trees
+node_modules/**
+vendor/**
+.bun/**
+.pnpm-store/**
+
+# VCS internals
+.git/**
+.git-cache/**
+
+# Build artifacts
+dist/**
+build/**
+out/**
+.next/**
+.nuxt/**
+.vercel/**
+.cache/**
+coverage/**
+
+# Runtime / logs / temp
+storage/logs/**
+logs/**
+tmp/**
+temp/**
+*.log
+
+# Binary / large generated
+*.min.js
+*.map
+*.zip
+*.tar
+*.gz
+*.sqlite
+*.db

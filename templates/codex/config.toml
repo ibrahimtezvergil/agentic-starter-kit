@@ -1,0 +1,20 @@
+# .codex/config.toml
+
+model = "gpt-5.3-codex"
+model_reasoning_effort = "medium"
+sandbox_mode = "workspace-write"
+
+[features]
+multi_agent = false
+
+[agents.default]
+description = "General-purpose coding helper."
+
+[agents.explorer]
+description = "Read-heavy codebase explorer."
+
+[agents.worker]
+description = "Implementation-focused agent for scoped edits."
+
+[agents.monitor]
+description = "Long-running checks and polling tasks."
