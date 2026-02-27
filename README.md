@@ -21,6 +21,57 @@ Bu repo, pratikte bir "çalışma sistemi" kurar:
 
 Özetle: **amaç sadece kod yazdırmak değil, sürdürülebilir ve güvenli bir geliştirme işletim sistemi kurmak.**
 
+## Başlangıç Dokümantasyonu (Quick Start)
+
+Yeni bir projede en kısa kurulum akışı:
+
+### 1) Starter kit'i projeye uygula
+```bash
+# proje kökünde
+git clone https://github.com/ibrahimtezvergil/agentic-starter-kit.git .agentic-starter-kit
+.agentic-starter-kit/bootstrap.sh . --tool both
+```
+
+### 2) Stack preset seç
+```bash
+.agentic-starter-kit/scripts/apply-preset.sh react
+# seçenekler: react-native | laravel | node-api | python
+```
+
+### 3) Hookları kur
+```bash
+.agentic-starter-kit/scripts/install-git-hooks.sh
+```
+
+### 4) İlk task'i başlat
+```bash
+.agentic-starter-kit/scripts/start-feature.sh auth-login-timeout-fix feat
+```
+
+### 5) Uygulama + test + commit
+```bash
+git add .
+git commit -m "fix: handle login timeout gracefully"
+```
+
+### 6) Review başlat (hemen veya sonra)
+```bash
+# commit sonrası prompt'tan da tetiklenebilir
+.agentic-starter-kit/scripts/ready-review.sh auth-login-timeout-fix
+```
+
+### 7) PR paketi üret
+```bash
+.agentic-starter-kit/scripts/package-pr.sh auth-login-timeout-fix origin/main HEAD
+```
+
+### 8) Task kapat
+```bash
+.agentic-starter-kit/scripts/end-task.sh auth-login-timeout-fix
+```
+
+Detaylı adım adım sürüm için: `docs/quickstart-10min.md`
+
 ## Ne kurar?
 
 - `.agentignore`
