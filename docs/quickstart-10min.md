@@ -6,17 +6,23 @@
 cd /path/to/project
 ```
 
-## 2) Install git hooks
+## 2) Apply stack preset
+```bash
+scripts/apply-preset.sh react
+# or: laravel | node-api | python
+```
+
+## 3) Install git hooks
 ```bash
 scripts/install-git-hooks.sh
 ```
 
-## 3) Start a feature
+## 4) Start a feature
 ```bash
 scripts/start-feature.sh auth-login-timeout-fix feat
 ```
 
-## 4) Implement + user test + commit
+## 5) Implement + user test + commit
 ```bash
 git add .
 git commit -m "fix: handle login timeout gracefully"
@@ -24,17 +30,17 @@ git commit -m "fix: handle login timeout gracefully"
 
 After commit, post-commit asks if review should start.
 
-## 5) Generate review payload manually (if skipped)
+## 6) Generate review payload manually (if skipped)
 ```bash
 scripts/ready-review.sh auth-login-timeout-fix
 ```
 
-## 6) Package PR
+## 7) Package PR
 ```bash
 scripts/package-pr.sh auth-login-timeout-fix origin/main HEAD
 ```
 
-## 7) Close task
+## 8) Close task
 ```bash
 scripts/end-task.sh auth-login-timeout-fix
 ```

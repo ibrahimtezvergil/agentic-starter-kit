@@ -1,0 +1,10 @@
+# Python (FastAPI/Django/Flask) preset
+
+default_branch: origin/main
+risk.high_file_count: 25
+risk.medium_file_count: 10
+risk.high_score_threshold: 5
+risk.medium_score_threshold: 2
+validation.test_command: "pytest"
+validation.lint_command: "ruff check ."
+validation.build_command: "python -m py_compile $(find . -name '*.py' -not -path './.venv/*')"

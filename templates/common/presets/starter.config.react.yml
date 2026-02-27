@@ -1,0 +1,10 @@
+# React / Next.js preset
+
+default_branch: origin/main
+risk.high_file_count: 25
+risk.medium_file_count: 10
+risk.high_score_threshold: 5
+risk.medium_score_threshold: 2
+validation.test_command: "npm test"
+validation.lint_command: "npm run lint"
+validation.build_command: "npm run build"

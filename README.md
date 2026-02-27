@@ -33,6 +33,7 @@ scripts/package-pr.sh <task-slug> [base-ref] [head-ref]
 scripts/context-cost-guard.sh [plan-file]
 scripts/analyze-risk.sh [base-ref] [head-ref]
 scripts/migration-safety-gate.sh [base-ref] [head-ref]
+scripts/apply-preset.sh <react|laravel|node-api|python>
 scripts/install-git-hooks.sh
 ```
 
@@ -44,6 +45,7 @@ scripts/install-git-hooks.sh
 - `context-cost-guard.sh`: context/cost kokularını kontrol eder
 - `analyze-risk.sh`: diff için low/medium/high risk sınıfı üretir
 - `migration-safety-gate.sh`: migration/sql değişikliklerinde onay kapısı
+- `apply-preset.sh`: stack presetini `starter.config.yml` üzerine uygular
 - `install-git-hooks.sh`: post-commit review prompt + pre-push migration gate kurar
 
 Seçenekler:
