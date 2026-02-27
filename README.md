@@ -70,6 +70,7 @@ Detaylı adım adım sürüm için: `docs/quickstart-10min.md`
 - `docs/ai/prompt-template.txt`
 - `.claude/skills/bugfix-safe/SKILL.md`
 - `.claude/skills/review-pr-risk/SKILL.md`
+- `.claude/skills/laravel-filament-solid/SKILL.md`
 - `.claude/agents/planner.md`
 - `.claude/agents/implementer.md`
 - `.claude/agents/reviewer.md`
@@ -145,6 +146,7 @@ Bootstrap sonrası projede iki örnek skill gelir:
 
 - `/bugfix-safe [issue|hata tanımı]`
 - `/review-pr-risk [branch veya PR no]`
+- `/laravel-filament-solid [task tanımı]`
 
 Claude Code'da `/skills` ile görebilir, doğrudan slash komutla çağırabilirsin.
 
