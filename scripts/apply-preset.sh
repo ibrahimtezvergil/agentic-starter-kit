@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if [[ $# -lt 1 ]]; then
-  echo "Usage: scripts/apply-preset.sh <react|laravel|node-api|python>"
+  echo "Usage: scripts/apply-preset.sh <react|react-native|laravel|node-api|python>"
   exit 1
 fi
 
@@ -12,7 +12,7 @@ DST="starter.config.yml"
 
 if [[ ! -f "$SRC" ]]; then
   echo "❌ Preset not found: $PRESET"
-  echo "Available: react, laravel, node-api, python"
+  echo "Available: react, react-native, laravel, node-api, python"
   exit 1
 fi
 

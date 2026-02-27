@@ -33,7 +33,7 @@ scripts/package-pr.sh <task-slug> [base-ref] [head-ref]
 scripts/context-cost-guard.sh [plan-file]
 scripts/analyze-risk.sh [base-ref] [head-ref]
 scripts/migration-safety-gate.sh [base-ref] [head-ref]
-scripts/apply-preset.sh <react|laravel|node-api|python>
+scripts/apply-preset.sh <react|react-native|laravel|node-api|python>
 scripts/install-git-hooks.sh
 ```
 

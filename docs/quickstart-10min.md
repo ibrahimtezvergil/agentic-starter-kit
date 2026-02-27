@@ -9,7 +9,7 @@ cd /path/to/project
 ## 2) Apply stack preset
 ```bash
 scripts/apply-preset.sh react
-# or: laravel | node-api | python
+# or: react-native | laravel | node-api | python
 ```
 
 ## 3) Install git hooks
