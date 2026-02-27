@@ -21,54 +21,42 @@ Bu repo, pratikte bir "çalışma sistemi" kurar:
 
 Özetle: **amaç sadece kod yazdırmak değil, sürdürülebilir ve güvenli bir geliştirme işletim sistemi kurmak.**
 
-## Başlangıç Dokümantasyonu (Quick Start)
+## Başlangıç Dokümantasyonu (Mantıksal Akış)
 
-Yeni bir projede en kısa kurulum akışı:
+Bu kitin doğru kullanım mantığı: **Plan → Onay → Uygulama → Review → PR → Kapatış**.
 
-### 1) Starter kit'i projeye uygula
+### A) Kurulum (bir kez)
 ```bash
 # proje kökünde
 git clone https://github.com/ibrahimtezvergil/agentic-starter-kit.git .agentic-starter-kit
 .agentic-starter-kit/bootstrap.sh . --tool both
-```
-
-### 2) Stack preset seç
-```bash
 .agentic-starter-kit/scripts/apply-preset.sh react
 # seçenekler: react-native | laravel | node-api | python
-```
-
-### 3) Hookları kur
-```bash
 .agentic-starter-kit/scripts/install-git-hooks.sh
 ```
 
-### 4) İlk task'i başlat
+### B) Task akışı (her işte)
+1. **Önce planı yap** (Claude/Codex veya manuel)
+2. Planı onayla
+3. Feature branch + plan dosyası başlat:
 ```bash
 .agentic-starter-kit/scripts/start-feature.sh auth-login-timeout-fix feat
 ```
-
-### 5) Uygulama + test + commit
+4. Uygula + user test + commit
+5. Review isteği oluştur:
 ```bash
-git add .
-git commit -m "fix: handle login timeout gracefully"
-```
-
-### 6) Review başlat (hemen veya sonra)
-```bash
-# commit sonrası prompt'tan da tetiklenebilir
 .agentic-starter-kit/scripts/ready-review.sh auth-login-timeout-fix
 ```
-
-### 7) PR paketi üret
+6. PR paketi oluştur:
 ```bash
 .agentic-starter-kit/scripts/package-pr.sh auth-login-timeout-fix origin/main HEAD
 ```
-
-### 8) Task kapat
+7. Task kapat:
 ```bash
 .agentic-starter-kit/scripts/end-task.sh auth-login-timeout-fix
 ```
+
+> Not: `start-feature.sh` planın yerine geçmez; planı operasyonel olarak branch + task dosyasına bağlar.
 
 Detaylı adım adım sürüm için: `docs/quickstart-10min.md`
 
@@ -90,9 +78,7 @@ Detaylı adım adım sürüm için: `docs/quickstart-10min.md`
 ./bootstrap.sh /path/to/project --tool both
 ```
 
-## Yarı otomatik task/session akışı
-
-Bu repoda yardımcı script'ler vardır:
+## Scriptler ve Amaçları
 
 ```bash
 scripts/start-feature.sh <task-slug> [branch-prefix] [--yes|--ci]
@@ -107,16 +93,18 @@ scripts/apply-preset.sh <react|react-native|laravel|node-api|python>
 scripts/install-git-hooks.sh
 ```
 
-- `start-feature.sh`: branch açar + plan bootstrap eder (one-command kickoff)
-- `new-task.sh`: plan dosyası oluşturur, fresh session hygiene hatırlatır
-- `end-task.sh`: verification checklist + context/cost guard + migration safety prompt
-- `ready-review.sh`: review payload dosyası üretir (`docs/review-queue/`), auto risk ekler, aynı SHA için duplicate review üretimini engeller
-- `package-pr.sh`: PR package şablonu üretir (`docs/pr-packages/`)
-- `context-cost-guard.sh`: context/cost kokularını kontrol eder
-- `analyze-risk.sh`: diff için low/medium/high risk sınıfı üretir
-- `migration-safety-gate.sh`: migration/sql değişikliklerinde onay kapısı
-- `apply-preset.sh`: stack presetini `starter.config.yml` üzerine uygular
-- `install-git-hooks.sh`: post-commit review prompt + pre-push migration gate kurar
+| Script | Ne yapar? | Neden var? |
+|---|---|---|
+| `start-feature.sh` | Branch açar, `new-task.sh` çağırır | Task başlangıcını standartlaştırır |
+| `new-task.sh` | Plan dosyası (`docs/plans/...`) üretir | Plansız geliştirmeyi azaltır |
+| `end-task.sh` | Verification checklist + guard + kapanış | “Bitti” demeden kalite kontrolü sağlar |
+| `ready-review.sh` | Review payload üretir, risk ekler, duplicate SHA’yı engeller | Reviewer’a standart ve tekrar etmeyen input verir |
+| `package-pr.sh` | PR paketi şablonu üretir | PR kalitesini ve hızını artırır |
+| `context-cost-guard.sh` | Context/maliyet kokularını tespit eder | Oturum şişmesini ve token kaçaklarını azaltır |
+| `analyze-risk.sh` | Diff’i low/medium/high sınıflar | Review derinliğini riske göre ayarlar |
+| `migration-safety-gate.sh` | Migration/SQL değişikliklerinde onay ister | Veri kaybı/riskli deploy ihtimalini düşürür |
+| `apply-preset.sh` | Stack’e uygun `starter.config.yml` uygular | React/Laravel/Python gibi stack’lerde hızlı adaptasyon |
+| `install-git-hooks.sh` | post-commit + pre-push hook kurar | Yarı otomatik review/safety akışı sağlar |
 
 Seçenekler:
 
