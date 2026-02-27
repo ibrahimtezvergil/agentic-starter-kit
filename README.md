@@ -70,6 +70,9 @@ Detaylı adım adım sürüm için: `docs/quickstart-10min.md`
 - `docs/ai/prompt-template.txt`
 - `.claude/skills/bugfix-safe/SKILL.md`
 - `.claude/skills/review-pr-risk/SKILL.md`
+- `.claude/agents/planner.md`
+- `.claude/agents/implementer.md`
+- `.claude/agents/reviewer.md`
 - `.claude-plugin/*` plugin-ready scaffold (commands/hooks/skills + plugin.json)
 - `starter.config.yml` (eşikler / default branch / validasyon komutları)
 
@@ -144,6 +147,16 @@ Bootstrap sonrası projede iki örnek skill gelir:
 - `/review-pr-risk [branch veya PR no]`
 
 Claude Code'da `/skills` ile görebilir, doğrudan slash komutla çağırabilirsin.
+
+## Agent Teams (Claude)
+
+Starter kit artık 3 rol için hazır ajan şablonu da kopyalar:
+- `.claude/agents/planner.md`
+- `.claude/agents/implementer.md`
+- `.claude/agents/reviewer.md`
+
+Önerilen kullanım: planner -> implementer -> reviewer.
+Detaylar: `docs/agent-teams.md`
 
 ## CI
 

@@ -95,6 +95,11 @@ fi
 copy_file "$TPL_DIR/claude/skills/bugfix-safe/SKILL.md" "$TARGET/.claude/skills/bugfix-safe/SKILL.md"
 copy_file "$TPL_DIR/claude/skills/review-pr-risk/SKILL.md" "$TARGET/.claude/skills/review-pr-risk/SKILL.md"
 
+# Claude Agent Teams templates
+copy_file "$TPL_DIR/claude/agents/planner.md" "$TARGET/.claude/agents/planner.md"
+copy_file "$TPL_DIR/claude/agents/implementer.md" "$TARGET/.claude/agents/implementer.md"
+copy_file "$TPL_DIR/claude/agents/reviewer.md" "$TARGET/.claude/agents/reviewer.md"
+
 case "$TOOL" in
   codex)
     copy_file "$TPL_DIR/codex/config.toml" "$TARGET/.codex/config.toml"
