@@ -2,6 +2,25 @@
 
 Yeni bir projeye başlarken Codex / Claude Code (ve benzeri ajanlar) için temel context hijyeni, kurallar ve prompt şablonlarını tek komutla kurar.
 
+## Ne amaçlıyoruz?
+
+Bu projenin amacı, AI destekli yazılım geliştirmeyi **hızlı ama kontrollü** hale getirmek:
+- Her projede sıfırdan süreç kurma yükünü kaldırmak
+- Agent kullanımını disipline etmek (scope, validation, review)
+- Review ve PR kalitesini standartlaştırmak
+- Context şişmesi ve maliyet kaçaklarını azaltmak
+- Riskli değişikliklerde (özellikle migration gibi) güvenlik kapıları koymak
+
+## Ne yapıyoruz?
+
+Bu repo, pratikte bir "çalışma sistemi" kurar:
+- `bootstrap.sh` ile başlangıç dosyalarını projeye yerleştirir
+- Scriptlerle task yaşam döngüsünü yönetir (başlat → uygula → review → PR → kapat)
+- Yarı otomatik hook akışıyla review tetikleme ve güvenlik kontrolleri sağlar
+- Stack presetleriyle (react, react-native, laravel, node-api, python) hızlı konfigürasyon sunar
+
+Özetle: **amaç sadece kod yazdırmak değil, sürdürülebilir ve güvenli bir geliştirme işletim sistemi kurmak.**
+
 ## Ne kurar?
 
 - `.agentignore`
