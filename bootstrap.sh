@@ -92,8 +92,6 @@ if [[ "$DRY_RUN" != "true" ]]; then
 fi
 
 # Claude Skills (project-local)
-copy_file "$TPL_DIR/claude/skills/bugfix-safe/SKILL.md" "$TARGET/.claude/skills/bugfix-safe/SKILL.md"
-copy_file "$TPL_DIR/claude/skills/review-pr-risk/SKILL.md" "$TARGET/.claude/skills/review-pr-risk/SKILL.md"
 copy_file "$TPL_DIR/claude/skills/laravel-filament-solid/SKILL.md" "$TARGET/.claude/skills/laravel-filament-solid/SKILL.md"
 
 # Claude Agent Teams templates

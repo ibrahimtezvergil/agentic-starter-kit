@@ -68,8 +68,6 @@ Detaylı adım adım sürüm için: `docs/quickstart-10min.md`
 - `GEMINI.md` (Gemini CLI için, gemini/all modunda)
 - `.codex/config.toml` (Codex için)
 - `docs/ai/prompt-template.txt`
-- `.claude/skills/bugfix-safe/SKILL.md`
-- `.claude/skills/review-pr-risk/SKILL.md`
 - `.claude/skills/laravel-filament-solid/SKILL.md`
 - `.claude/agents/planner.md`
 - `.claude/agents/implementer.md`
@@ -142,10 +140,8 @@ Bu yapı ile skill + command + hook birleşik plugin düzenine hızlı geçiş y
 
 ## Claude Skills kullanımı
 
-Bootstrap sonrası projede iki örnek skill gelir:
+Bootstrap sonrası projede tek ana skill gelir:
 
-- `/bugfix-safe [issue|hata tanımı]`
-- `/review-pr-risk [branch veya PR no]`
 - `/laravel-filament-solid [task tanımı]`
 
 Claude Code'da `/skills` ile görebilir, doğrudan slash komutla çağırabilirsin.
