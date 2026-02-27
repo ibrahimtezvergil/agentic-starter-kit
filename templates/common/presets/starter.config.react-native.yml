@@ -1,10 +1,19 @@
 # React Native preset
 
 default_branch: origin/main
+
+# Risk tuning
 risk.high_file_count: 25
 risk.medium_file_count: 10
 risk.high_score_threshold: 5
 risk.medium_score_threshold: 2
+risk.sensitive_paths: "src/navigation/,src/services/,android/,ios/,src/api/"
+
+# Validation
 validation.test_command: "npm test"
 validation.lint_command: "npm run lint"
-validation.build_command: "npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output /tmp/main.ios.bundle --assets-dest /tmp"
+validation.build_command: "npx tsc --noEmit"
+
+# Context hygiene
+context.allowed_paths: "src/,__tests__/,e2e/"
+context.max_plan_lines: 150

@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Find agentic-starter-kit location
+AGENTIC_DIR=""
+for candidate in ".agentic-starter-kit" "agentic-starter-kit"; do
+  if [[ -d "$candidate/scripts" ]]; then
+    AGENTIC_DIR="$candidate"
+    break
+  fi
+done
+
+if [[ -z "$AGENTIC_DIR" ]]; then
+  echo "❌ agentic-starter-kit not found in .agentic-starter-kit/ or agentic-starter-kit/"
+  exit 1
+fi
+
+CMD="${1:-help}"
+shift || true
+
+case "$CMD" in
+  start|feature)    "$AGENTIC_DIR/scripts/start-feature.sh" "$@" ;;
+  task|new-task)     "$AGENTIC_DIR/scripts/new-task.sh" "$@" ;;
+  end|close)         "$AGENTIC_DIR/scripts/end-task.sh" "$@" ;;
+  review)            "$AGENTIC_DIR/scripts/ready-review.sh" "$@" ;;
+  pr|package)        "$AGENTIC_DIR/scripts/package-pr.sh" "$@" ;;
+  risk)              "$AGENTIC_DIR/scripts/analyze-risk.sh" "$@" ;;
+  guard|cost)        "$AGENTIC_DIR/scripts/context-cost-guard.sh" "$@" ;;
+  migration|migrate) "$AGENTIC_DIR/scripts/migration-safety-gate.sh" "$@" ;;
+  preset)            "$AGENTIC_DIR/scripts/apply-preset.sh" "$@" ;;
+  hooks)             "$AGENTIC_DIR/scripts/install-git-hooks.sh" "$@" ;;
+  doctor)            "$AGENTIC_DIR/scripts/doctor.sh" "$@" ;;
+  dashboard|status)  "$AGENTIC_DIR/scripts/dashboard.sh" "$@" ;;
+  clean|session)     "$AGENTIC_DIR/scripts/session-clean.sh" "$@" ;;
+  help|--help|-h)
+    cat <<EOF
+Usage: ./agentic <command> [args...]
+
+Commands:
+  start <slug> [prefix]    Start feature branch + plan
+  task <slug>              Create new task plan
+  end <slug>               Close task with verification
+  review <slug>            Generate review request
+  pr <slug> [base] [head]  Package PR
+  risk [base] [head]       Analyze change risk
+  guard [plan-file]        Context/cost guard
+  migration [base] [head]  Migration safety gate
+  preset <stack>           Apply stack preset
+  hooks                    Install git hooks
+  doctor                   Health check
+  dashboard                Status overview
+  clean                    Session cleanup
+EOF
+    ;;
+  *)
+    echo "❌ Unknown command: $CMD"
+    echo "Run: ./agentic help"
+    exit 1
+    ;;
+esac

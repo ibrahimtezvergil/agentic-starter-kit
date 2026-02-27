@@ -36,3 +36,39 @@ config_get() {
     echo "$value"
   fi
 }
+
+EXPECTED_KEYS="default_branch risk.high_file_count risk.medium_file_count risk.high_score_threshold risk.medium_score_threshold validation.test_command validation.lint_command validation.build_command"
+
+config_validate() {
+  local cfg="starter.config.yml"
+  local missing=0
+  local placeholder=0
+
+  if [[ ! -f "$cfg" ]]; then
+    echo "❌ Config not found: $cfg"
+    return 1
+  fi
+
+  for key in $EXPECTED_KEYS; do
+    local val
+    val="$(config_get "$key" "")"
+    if [[ -z "$val" ]]; then
+      echo "  ⚠️  Missing key: $key"
+      missing=$((missing+1))
+    elif [[ "$val" == "[set per project]" ]]; then
+      echo "  💡 Not configured: $key (using placeholder)"
+      placeholder=$((placeholder+1))
+    fi
+  done
+
+  if (( missing > 0 )); then
+    echo "⚠️  $missing missing key(s), $placeholder placeholder(s) in $cfg"
+    return 1
+  elif (( placeholder > 0 )); then
+    echo "⚠️  $placeholder placeholder(s) in $cfg — consider running: scripts/apply-preset.sh <stack>"
+    return 0
+  else
+    echo "✅ Config validation passed"
+    return 0
+  fi
+}

@@ -65,6 +65,7 @@ Detaylı adım adım sürüm için: `docs/quickstart-10min.md`
 - `.agentignore`
 - `AGENTS.md` (context hygiene + çalışma kuralları)
 - `CLAUDE.md` (Claude Code için)
+- `GEMINI.md` (Gemini CLI için, gemini/all modunda)
 - `.codex/config.toml` (Codex için)
 - `docs/ai/prompt-template.txt`
 - `.claude/skills/bugfix-safe/SKILL.md`
@@ -76,6 +77,8 @@ Detaylı adım adım sürüm için: `docs/quickstart-10min.md`
 
 ```bash
 ./bootstrap.sh /path/to/project --tool both
+# optional preview mode:
+./bootstrap.sh /path/to/project --tool all --dry-run
 ```
 
 ## Scriptler ve Amaçları
@@ -110,8 +113,11 @@ Seçenekler:
 
 - `--tool codex`
 - `--tool claude`
+- `--tool gemini`
 - `--tool both` (varsayılan)
+- `--tool all` (codex + claude + gemini)
 - `--force` (mevcut dosyaların üstüne yazar)
+- `--dry-run` (dosya yazmadan ne olacağını gösterir)
 
 ## Örnek
 

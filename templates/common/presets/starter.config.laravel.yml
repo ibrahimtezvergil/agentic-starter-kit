@@ -1,10 +1,19 @@
 # Laravel preset
 
 default_branch: origin/main
-risk.high_file_count: 25
-risk.medium_file_count: 10
-risk.high_score_threshold: 5
+
+# Risk tuning (Laravel has more granular file structure)
+risk.high_file_count: 20
+risk.medium_file_count: 8
+risk.high_score_threshold: 4
 risk.medium_score_threshold: 2
+risk.sensitive_paths: "app/Models/,app/Policies/,routes/,config/,database/migrations/"
+
+# Validation
 validation.test_command: "php artisan test"
-validation.lint_command: "./vendor/bin/pint"
+validation.lint_command: "./vendor/bin/pint --test"
 validation.build_command: "npm run build"
+
+# Context hygiene
+context.allowed_paths: "app/,routes/,resources/,tests/,database/,config/"
+context.max_plan_lines: 120

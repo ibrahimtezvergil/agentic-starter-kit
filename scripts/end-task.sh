@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck disable=SC1091
+source "$(dirname "$0")/lib-config.sh"
+
 if [[ $# -lt 1 ]]; then
   echo "Usage: scripts/end-task.sh <task-slug> [--yes|--ci]"
   echo "Example: scripts/end-task.sh crm-login-timeout-fix --yes"
@@ -25,8 +28,38 @@ if [[ ! -f "$PLAN_FILE" ]]; then
   echo "Continuing with checklist only..."
 fi
 
+# --- Auto validation ---
+run_validation() {
+  local label="$1"
+  local cmd="$2"
+  if [[ -z "$cmd" || "$cmd" == "[set per project]" ]]; then
+    echo "  ⏭️  $label: not configured"
+    return 0
+  fi
+  echo "  🔄 $label: $cmd"
+  if eval "$cmd"; then
+    echo "  ✅ $label passed"
+  else
+    echo "  ❌ $label failed"
+    return 1
+  fi
+}
+
+echo "🧪 Running validation commands..."
+VALIDATION_FAILED=0
+run_validation "Test"  "$(config_get validation.test_command)"  || VALIDATION_FAILED=1
+run_validation "Lint"  "$(config_get validation.lint_command)"  || VALIDATION_FAILED=1
+run_validation "Build" "$(config_get validation.build_command)" || VALIDATION_FAILED=1
+
+if (( VALIDATION_FAILED == 1 )); then
+  echo "❌ Validation failed. Fix issues before closing task."
+  exit 1
+fi
+echo "✅ All configured validations passed."
+
+echo
 echo "End-of-task checklist:"
-echo "- Verification run complete (test/lint/build)"
+echo "- Validation run complete ✅"
 echo "- Handoff section updated"
 echo "- Ready for review/PR"
 
@@ -34,10 +67,10 @@ echo
 if [[ "$ASSUME_YES" == "true" ]]; then
   VERIFIED="Y"
 else
-  read -r -p "Did you run verification commands successfully? (y/N): " VERIFIED
+  read -r -p "Any additional manual checks completed? (Y/n): " VERIFIED
 fi
-if [[ ! "$VERIFIED" =~ ^[Yy]$ ]]; then
-  echo "❌ Stop: run verification before closing task."
+if [[ "$VERIFIED" =~ ^[Nn]$ ]]; then
+  echo "❌ Stop: complete manual checks before closing task."
   exit 1
 fi
 

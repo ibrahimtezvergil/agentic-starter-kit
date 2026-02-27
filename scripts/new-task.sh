@@ -52,10 +52,9 @@ fi
 
 echo
 
-echo "Session hygiene checklist:"
-echo "1) If this is a new topic, clear previous agent session/context"
-echo "2) Keep scope narrow (app/, resources/, tests/)"
-echo "3) Exclude heavy dirs (node_modules/, vendor/, dist/, build/, logs/)"
+echo "Session hygiene:"
+echo "  Run: scripts/session-clean.sh (or: ./agentic clean)"
+echo "  Tip: clear previous agent session if this is a new topic"
 
 echo
 if [[ "$ASSUME_YES" == "true" ]]; then

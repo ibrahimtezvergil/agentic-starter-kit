@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck disable=SC1091
+source "$(dirname "$0")/lib-config.sh"
+
 PLAN_FILE="${1:-}"
 WARN=0
 
@@ -8,8 +11,9 @@ echo "🧮 Context/Cost Guard"
 
 if [[ -n "$PLAN_FILE" && -f "$PLAN_FILE" ]]; then
   lines=$(wc -l < "$PLAN_FILE" | tr -d ' ')
-  echo "- Plan lines: $lines"
-  if (( lines > 180 )); then
+  MAX_PLAN_LINES="$(config_get context.max_plan_lines 180)"
+  echo "- Plan lines: $lines (max: $MAX_PLAN_LINES)"
+  if (( lines > MAX_PLAN_LINES )); then
     echo "  ⚠️ Plan is long. Consider compacting before next agent turn."
     WARN=1
   fi

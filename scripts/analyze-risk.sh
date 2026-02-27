@@ -29,6 +29,18 @@ if echo "$DIFF_FILES" | grep -Eq '(^|/)(auth|security|permissions|polic|middlewa
 if echo "$DIFF_FILES" | grep -Eq '(^|/)config/|(^|/)infra/|(^|/)docker|(^|/)k8s|(^|/)\.github/workflows/'; then score=$((score+2)); fi
 if echo "$DIFF_FILES" | grep -Eq '(^|/)tests?/'; then score=$((score-1)); fi
 
+# custom sensitive paths from config
+CUSTOM_PATHS="$(config_get risk.sensitive_paths "")"
+if [[ -n "$CUSTOM_PATHS" ]]; then
+  IFS=',' read -ra CPATHS <<< "$CUSTOM_PATHS"
+  for cpath in "${CPATHS[@]}"; do
+    cpath="$(echo "$cpath" | xargs)"  # trim whitespace
+    if [[ -n "$cpath" ]] && echo "$DIFF_FILES" | grep -q "$cpath"; then
+      score=$((score+2))
+    fi
+  done
+fi
+
 high_th="$(config_get risk.high_score_threshold 5)"
 med_th="$(config_get risk.medium_score_threshold 2)"
 if (( score >= high_th )); then

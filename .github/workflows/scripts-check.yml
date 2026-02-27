@@ -16,3 +16,5 @@ jobs:
         run: bash -n scripts/*.sh
       - name: Shellcheck
         run: shellcheck -x scripts/*.sh
+      - name: Smoke tests
+        run: bash tests/smoke-test.sh

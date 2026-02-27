@@ -1,10 +1,19 @@
-# Python (FastAPI/Django/Flask) preset
+# Python preset
 
 default_branch: origin/main
+
+# Risk tuning
 risk.high_file_count: 25
 risk.medium_file_count: 10
 risk.high_score_threshold: 5
 risk.medium_score_threshold: 2
+risk.sensitive_paths: "src/auth/,alembic/,migrations/,src/middleware/,src/config/"
+
+# Validation
 validation.test_command: "pytest"
 validation.lint_command: "ruff check ."
-validation.build_command: "python -m py_compile $(find . -name '*.py' -not -path './.venv/*')"
+validation.build_command: "find src -name '*.py' -print0 | xargs -0 -n1 python -m py_compile"
+
+# Context hygiene
+context.allowed_paths: "src/,tests/,alembic/"
+context.max_plan_lines: 150
